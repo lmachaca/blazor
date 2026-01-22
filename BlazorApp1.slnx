@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="backendAPI/backendAPI.csproj" Id="30794a86-2f46-4034-9533-b0ccef716f3a" />
+  <Project Path="BlazorApp1/BlazorApp1.csproj" />
+</Solution>
