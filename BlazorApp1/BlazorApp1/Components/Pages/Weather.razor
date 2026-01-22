@@ -1,0 +1,98 @@
+﻿@page "/weather"
+@inject HttpClient Http
+@using System.Net.Http.Json
+@using System.Text.Json
+<h3>API Test</h3>
+
+
+<button @onclick="GetHello">Get Hello</button>
+<br />
+<button @onclick="GetTime"> Get Server Time</button>
+<br />
+<button @onclick="GetRandom">Get Random Number</button>
+
+<button @onclick="CallApi">Call Weather API</button>
+<button @onclick="PostGreeting">Post Greeting</button>
+<input @bind="name" placeholder="Enter your name" />
+
+@if (error != null)
+{
+    <p style="color:red">@error</p>
+}
+else if (result != null)
+{
+    <pre>@result</pre>
+}
+
+@code {
+    string? result;
+    string? error;
+    string? name = "User";
+
+    async Task CallApi()
+    {
+        try
+        {
+            result = await Http.GetStringAsync("WeatherForecast");
+            error = null;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    async Task GetHello()
+    {
+        try
+        {
+            result = await Http.GetStringAsync("/hello");
+            error = null;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    async Task GetTime()
+    {
+        try
+        {
+            result = await Http.GetStringAsync("/time");
+            error = null;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    async Task GetRandom()
+    {
+        try
+        {
+            result = await Http.GetStringAsync("/random");
+            error = null;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    async Task PostGreeting()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("/greet", name);
+            result = await response.Content.ReadAsStringAsync();
+            error = null;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+}
