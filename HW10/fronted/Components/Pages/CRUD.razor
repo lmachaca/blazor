@@ -1,0 +1,178 @@
+﻿@page "/crud"
+@rendermode InteractiveServer
+@inject HttpClient Http
+<h3>Simple API CRUD Table</h3>
+
+<button @onclick="OpenCreateModal">Add New Item</button>
+
+@if (loading)
+{
+    <p><em>Loading...</em></p>
+}
+else if (error != null)
+{
+    <p style="color:red">@error</p>
+}
+else
+{
+    <table border="1" cellpadding="6" cellspacing="0" style="margin-top:10px;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in items)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <button @onclick="() => OpenEditModal(item)">Edit</button>
+                        <button @onclick="() => DeleteItem(item.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (showModal)
+{
+    <div style="
+                position:fixed;
+                top:0; left:0;
+                width:100%; height:100%;
+                background:rgba(0,0,0,0.4);">
+
+        <div style="
+                    background:white;
+                    width:300px;
+                    margin:100px auto;
+                    padding:15px;
+                    border-radius:4px;">
+
+            <h4>@(isEditing ? "Edit Item" : "Create Item")</h4>
+
+            <div style="margin-bottom:10px;">
+                <label>Name:</label><br />
+                <input @bind="modalName" />
+            </div>
+
+            <button @onclick="SaveItem">Save</button>
+            <button @onclick="CloseModal">Cancel</button>
+        </div>
+    </div>
+}
+@code{
+
+    // 1. List of items
+    private List<Item> items = new();
+
+    // 2. Loading status
+    private bool loading = true;
+
+    // 3. Error messages
+    private string? error = null;
+
+    // 4. Modal visibility
+    private bool showModal = false;
+
+    // 5. Whether the modal is editing or creating
+    private bool isEditing = false;
+
+    // 6. Currently edited item ID
+    private int? editingItemId = null;
+
+    // 7. Modal input value
+    private string modalName = string.Empty;
+
+    private class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadItems();
+    }
+    private async Task LoadItems()
+    {
+        loading = true;
+        error = null;
+        try
+        {
+            items = await Http.GetFromJsonAsync<List<Item>>("items") ?? new List<Item>();  // Removed leading /
+        }
+        catch (Exception ex)
+        {
+            error = $"Error loading items: {ex.Message}";
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private void OpenCreateModal()
+    {
+        isEditing = false;
+        modalName = string.Empty;
+        showModal = true;
+    }
+
+    private void OpenEditModal(Item item)
+    {
+        isEditing = true;
+        editingItemId = item.Id;
+        modalName = item.Name;
+        showModal = true;
+    }
+    private void CloseModal()
+    {
+        showModal = false;
+    }
+
+    private async Task SaveItem()
+    {
+        try
+        {
+            if (isEditing && editingItemId.HasValue)
+            {
+                var updatedItem = new Item { Id = editingItemId.Value, Name = modalName };
+                var response = await Http.PutAsJsonAsync($"items/{editingItemId.Value}", updatedItem);
+                response.EnsureSuccessStatusCode();
+            }
+            else
+            {
+                var newItem = new Item { Name = modalName };
+                var response = await Http.PostAsJsonAsync("items", newItem);
+                response.EnsureSuccessStatusCode();
+            }
+            await LoadItems();
+            CloseModal();
+        }
+     
+        catch (Exception ex)
+        {
+            error = $"Error deleting item: {ex.Message}";
+            
+        }
+
+    }
+    private async Task DeleteItem(int id)
+    {
+        try
+        {
+            await Http.DeleteAsync($"items/{id}");
+            await LoadItems();
+        }
+        catch (Exception ex)
+        {
+            error = $"Failed to delete item: {ex.Message}";
+        }
+    }
+
+}

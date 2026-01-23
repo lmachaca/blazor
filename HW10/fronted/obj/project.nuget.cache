@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "kWU1Bj4V4Hc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Snow Library\\Documents\\backend\\HW10\\fronted\\fronted.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Snow Library\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.2\\microsoft.aspnetcore.app.internal.assets.10.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

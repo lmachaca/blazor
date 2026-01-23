@@ -1,0 +1,25 @@
+@HW10_HostAddress = http://localhost:5133
+
+GET {{HW10_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+GET {{$apiKey}}{{HW10_HostAddress}}/Test/items
+Accept: application/json
+
+###
+POST {{$apiKey}}{{HW10_HostAddress}}/Test/items
+Content-Type: application/json
+{
+  "name": "Sample Item"
+}
+
+###
+PUT {{$apiKey}}{{HW10_HostAddress}}/Test/items/1
+Content-Type: application/json
+{
+  "id": 1,
+  "name": "Updated Item"
+}
+###
+DELETE {{$apiKey}}{{HW10_HostAddress}}/Test/items/1

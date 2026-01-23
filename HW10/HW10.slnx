@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="fronted/fronted.csproj" />
+  <Project Path="HW10/HW10.csproj" />
+</Solution>
