@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Snow Library\\Documents\\backend\\week03\\BlazorApp1\\backendAPI\\backendAPI.csproj": {}
+    "C:\\Users\\Snow Library\\Documents\\backend\\week03\\blazor\\BlazorApp1\\backendAPI\\backendAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Snow Library\\Documents\\backend\\week03\\BlazorApp1\\backendAPI\\backendAPI.csproj": {
+    "C:\\Users\\Snow Library\\Documents\\backend\\week03\\blazor\\BlazorApp1\\backendAPI\\backendAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Snow Library\\Documents\\backend\\week03\\BlazorApp1\\backendAPI\\backendAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Snow Library\\Documents\\backend\\week03\\blazor\\BlazorApp1\\backendAPI\\backendAPI.csproj",
         "projectName": "backendAPI",
-        "projectPath": "C:\\Users\\Snow Library\\Documents\\backend\\week03\\BlazorApp1\\backendAPI\\backendAPI.csproj",
+        "projectPath": "C:\\Users\\Snow Library\\Documents\\backend\\week03\\blazor\\BlazorApp1\\backendAPI\\backendAPI.csproj",
         "packagesPath": "C:\\Users\\Snow Library\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Snow Library\\Documents\\backend\\week03\\BlazorApp1\\backendAPI\\obj\\",
+        "outputPath": "C:\\Users\\Snow Library\\Documents\\backend\\week03\\blazor\\BlazorApp1\\backendAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
